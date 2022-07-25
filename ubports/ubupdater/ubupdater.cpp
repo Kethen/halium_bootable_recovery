@@ -37,6 +37,9 @@ int setup_partitions(RecoveryUI *ui) {
     // we are doing manual mounts where we only specify the path.
     load_volume_table();
 
+    // mount /data
+    system("mount /data");
+
     return INSTALL_SUCCESS;
 }
 

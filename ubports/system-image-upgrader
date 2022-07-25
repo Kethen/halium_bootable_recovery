@@ -358,7 +358,7 @@ do
                     DATA_FORMAT=1
 
                     if [ "$USE_SYSTEM_PARTITION" -eq 1 ]; then
-                        umount /data
+                        umount /data || true
                     fi
                 ;;
 
@@ -594,7 +594,7 @@ echo "Done upgrading..."
 # Devices with f2fs can reserve space with setting the
 # "reserve_root" mount option.
 if [ "$USE_SYSTEM_PARTITION" -eq 1 ]; then
-    mount /data
+    mount /data || true
 fi
 
 DATA_FS_TYPE=$(grep "/data " /proc/mounts| cut -d ' ' -f3)
@@ -603,6 +603,6 @@ if [ "$DATA_FS_TYPE" == "ext4" ]; then
 fi
 
 # Always unmount unconditionally
-umount /data
+umount /data || true
 
 sync

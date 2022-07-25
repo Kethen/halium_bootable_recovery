@@ -933,9 +933,11 @@ Device::BuiltinAction start_recovery(Device* device, const std::vector<std::stri
       }
     }
   } else if (should_update_ubuntu_package) {
+    system("mount /data");
     if (access(UBUNTU_COMMAND_FILE, F_OK) != -1) {
       status = do_ubuntu_update(ui);
     }
+    system("umount /data");
   } else if (should_wipe_data) {
     save_current_log = true;
     CHECK(device->GetReason().has_value());

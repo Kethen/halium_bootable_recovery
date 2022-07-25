@@ -382,6 +382,14 @@ int main(int argc, char** argv) {
 
   load_volume_table();
 
+  // mount /data and symlink /data/cache to /cache
+  system(
+    "mount /data;"
+    "if ! [ -d /data/cache ]; then mkdir /data/cache; fi;"
+    "if [ -d /cache ]; then rmdir /cache; fi;"
+    "ln -s /data/cache /cache;"
+  );
+
   std::string stage;
   std::vector<std::string> args = get_args(argc, argv, &stage);
   auto args_to_parse = StringVectorToNullTerminatedArray(args);
